@@ -7,17 +7,32 @@
   flex-wrap: wrap;
   row-gap: 24px;
   column-gap: 24px;
-  padding: 24px min(0%, 156px);
+  padding: 24px 0;
   background-color: #fff;
   justify-content: center;
+}
+
+.form-search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.search-input {
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 16px;
 }
 .card {
   max-width: 360px;
   min-width: 290px;
   width: 100%;
-
   border: 1px solid #000;
+  border-radius: 4px;
 }
+
 .card-img {
   width: 100%;
   aspect-ratio: 360 / 200;

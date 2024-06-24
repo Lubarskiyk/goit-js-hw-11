@@ -1,0 +1,49 @@
+@import url('../../node_modules/modern-normalize/modern-normalize.css');
+@import url('./null.css');
+@import url('./base.css');
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 24px;
+  column-gap: 24px;
+  padding: 24px min(0%, 156px);
+  background-color: #fff;
+  justify-content: center;
+}
+.card {
+  max-width: 360px;
+  min-width: 290px;
+  width: 100%;
+
+  border: 1px solid #000;
+}
+.card-img {
+  width: 100%;
+  aspect-ratio: 360 / 200;
+  object-fit: cover;
+  object-position: center;
+}
+.card-title {
+  display: flex;
+  gap: 2px;
+  justify-content: space-around;
+  align-items: center;
+  padding: 4px 4px;
+  width: 100%;
+}
+.card-title-text {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.33333;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+  text-align: center;
+}
+.card-text-value {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 2;
+  letter-spacing: 0.04em;
+  text-align: center;
+}

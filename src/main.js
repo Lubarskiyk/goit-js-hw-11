@@ -10,13 +10,14 @@ const urls = new URLSearchParams(searchSettings);
 const searchButton = document.querySelector('.js-search-form');
 const gallery = document.querySelector('.gallery');
 searchButton.addEventListener('submit', handlerSearchButton);
-console.log(gallery);
+
 function handlerSearchButton(event) {
   event.preventDefault();
-  urls.set('q', 'dog');
+  const searchText = event.target.searchtext.value;
+  urls.set('q', searchText);
+  gallery.innerHTML = '';
   fetchImage(`https://pixabay.com/api/?${urls}`)
     .then(image => {
-      console.log(renderCard(image.hits));
       gallery.insertAdjacentHTML('beforeend', renderCard(image.hits));
     })
     .catch(error => console.log(error));
@@ -32,7 +33,6 @@ function fetchImage(qveryURL) {
 }
 
 function renderCard(imageData) {
-  console.log(imageData);
   return imageData
     .map(
       el =>

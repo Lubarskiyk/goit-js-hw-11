@@ -1,4 +1,6 @@
 import { renderCard } from './js/render-function';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 const searchSettings = {
   key: '44443472-3b41bcc651e7d0b56b1888f38',
   q: '',
@@ -20,6 +22,7 @@ function handlerSearchButton(event) {
   fetchImage(`https://pixabay.com/api/?${urls}`)
     .then(image => {
       gallery.insertAdjacentHTML('beforeend', renderCard(image.hits));
+      galleryBig.refresh();
     })
     .catch(error => console.log(error));
 }
@@ -32,3 +35,10 @@ function fetchImage(qveryURL) {
     return response.json();
   });
 }
+
+const galleryBig = new SimpleLightbox('.gallery a', {
+  captionDelay: 250,
+  overlayOpacity: 0.8,
+  scrollZoom: false,
+});
+galleryBig.on('show.simplelightbox', function () {});

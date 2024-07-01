@@ -1,4 +1,9 @@
-function renderCard(imageData) {
+export const refs = {
+  searchButton: document.querySelector('.js-search-form'),
+  gallery: document.querySelector('.gallery'),
+};
+
+export function renderCard(imageData) {
   return imageData
     .map(
       el =>
@@ -32,5 +37,3 @@ function renderCard(imageData) {
     )
     .join('');
 }
-
-export { renderCard };

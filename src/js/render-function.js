@@ -1,6 +1,21 @@
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+
+iziToast.settings({
+  timeout: 2500,
+  resetOnHover: true,
+  transitionIn: 'flipInX',
+  transitionOut: 'flipOutX',
+  position: 'topRight',
+  titleSize: 25,
+  messageSize: 25,
+  backgroundColor: 'rgba(255, 182, 66, 0.8)',
+});
+
 export const refs = {
-  searchButton: document.querySelector('.js-search-form'),
+  searchForm: document.querySelector('.js-search-form'),
   gallery: document.querySelector('.gallery'),
+  loader: document.querySelector('.js-loader'),
 };
 
 export function renderCard(imageData) {
@@ -36,4 +51,28 @@ export function renderCard(imageData) {
           </li>`
     )
     .join('');
+}
+
+export function handlerError(error) {
+  switch (error) {
+    case 'outdata':
+      iziToast.warning({
+        title: 'Error',
+        message: 'Введіть данні для пошуку!',
+      });
+      break;
+    case 'nodata':
+      iziToast.warning({
+        title: 'Error',
+        message:
+          'Sorry, there are no images matching your search query. Please try again!',
+      });
+      break;
+    default:
+      iziToast.error({
+        title: 'Error',
+        message: 'Щось пішло не так. Ми працюемо над вирішенням питання!',
+      });
+      break;
+  }
 }

@@ -1,28 +1,39 @@
-import { renderCard, refs } from './js/render-function';
-import { fetchImage, searchSettings } from './js/paxabay-api';
+import { renderCard, refs, handlerError } from './js/render-function';
+import { fetchImage, generateSearchString } from './js/paxabay-api';
 
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-refs.searchButton.addEventListener('submit', handlerSearchButton);
+refs.searchForm.addEventListener('submit', handlerSearchButton);
 
 function handlerSearchButton(event) {
   event.preventDefault();
   const searchText = event.target.searchtext.value;
-  const urls = new URLSearchParams(searchSettings);
-  urls.set('q', searchText);
+  if (!searchText) {
+    handlerError('outdata');
+    return;
+  }
   refs.gallery.innerHTML = '';
-  fetchImage(`https://pixabay.com/api/?${urls}`)
+  refs.loader.classList.add('loader');
+  fetchImage(generateSearchString(searchText))
     .then(image => {
+      refs.loader.classList.remove('loader');
+      if (image.totalHits === 0) {
+        handlerError('nodata');
+        return;
+      }
       refs.gallery.insertAdjacentHTML('beforeend', renderCard(image.hits));
-      galleryBig.refresh();
+      galleryBigImage.refresh();
     })
-    .catch(error => console.log(error));
+    .catch(error => {
+      refs.loader.classList.remove('loader');
+      handlerError(error);
+    })
+    .finally(refs.searchForm.reset());
 }
-
-const galleryBig = new SimpleLightbox('.gallery a', {
+const galleryBigImage = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
   overlayOpacity: 0.8,
   scrollZoom: false,
 });
-galleryBig.on('show.simplelightbox', function () {});
+galleryBigImage.on('show.simplelightbox', function () {});
